@@ -33,18 +33,19 @@ class SafeTxServiceOperator(SafeOperator):
         print(tabulate(rows, headers=headers))
 
     def add_delegate(self, delegate_address: str, label: str, signer_address: str):
-        signer_account = [account for account in self.accounts if account.address == signer_address]
-        if not signer_account:
-            raise AccountNotLoadedException(signer_address)
-        elif signer_address not in self.safe_cli_info.owners:
-            raise NonExistingOwnerException(signer_address)
-        else:
-            signer_account = signer_account[0]
-            try:
-                self.safe_tx_service.add_delegate(self.address, delegate_address, label, signer_account)
-                return True
-            except BaseAPIException:
-                return False
+        self.safe_tx_service.add_delegate(self.address, delegate_address, label, None)
+        # signer_account = [account for account in self.accounts if account.address == signer_address]
+        # if not signer_account:
+        #     raise AccountNotLoadedException(signer_address)
+        # elif signer_address not in self.safe_cli_info.owners:
+        #     raise NonExistingOwnerException(signer_address)
+        # else:
+        #     signer_account = signer_account[0]
+        #     try:
+        #         self.safe_tx_service.add_delegate(self.address, delegate_address, label, signer_account)
+        #         return True
+        #     except BaseAPIException:
+        #         return False
 
     def remove_delegate(self, delegate_address: str, signer_address: str):
         signer_account = [account for account in self.accounts if account.address == signer_address]

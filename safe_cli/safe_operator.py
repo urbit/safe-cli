@@ -597,7 +597,7 @@ class SafeOperator:
         threshold = self.safe_cli_info.threshold
         selected_accounts: List[Account] = []  # Some accounts that are not an owner can be loaded
         for account in self.accounts:
-            if account.address in owners:
+            # if account.address in owners:
                 selected_accounts.append(account)
                 threshold -= 1
                 if threshold == 0:
